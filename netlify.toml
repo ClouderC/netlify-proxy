@@ -1,0 +1,24 @@
+# 全局 CORS 配置
+[[headers]]
+  for = "/*"
+    [headers.values]
+    Access-Control-Allow-Origin = "*"
+    Access-Control-Allow-Headers = "*"
+    Access-Control-Allow-Methods = "GET, POST, PUT, DELETE, OPTIONS, HEAD, PATCH"
+    Access-Control-Expose-Headers = "*"
+    Access-Control-Max-Age = "86400"
+
+# 函数配置
+[functions]
+  directory = "functions"
+
+# 重定向配置 - 将所有请求转发到代理函数
+[[redirects]]
+  from = "/*"
+  to = "/.netlify/functions/proxy"
+  status = 200
+  force = true
+
+  # 保持查询参数和请求方法
+  [redirects.headers]
+    X-From = ":splat"
